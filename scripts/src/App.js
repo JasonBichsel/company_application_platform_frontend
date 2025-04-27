@@ -9,7 +9,7 @@ import HomePage from './pages/HomePage';
 
 function App() {
     return (
-        <BrowserRouter> {/* Routes mit BrowserRouter einwickeln */}
+        <BrowserRouter basename="/company_application_platform_frontend"> {/* Routes mit BrowserRouter einwickeln */}
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/admin" element={<AdminPage />} />
