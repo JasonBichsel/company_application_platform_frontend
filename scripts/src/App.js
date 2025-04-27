@@ -9,7 +9,7 @@ import HomePage from './pages/HomePage';
 
 function App() {
     return (
-        <HashRouter> {/* Routes mit BrowserRouter einwickeln */}
+        <HashRouter> 
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/admin" element={<AdminPage />} />
