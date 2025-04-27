@@ -9,7 +9,7 @@ import HomePage from './pages/HomePage';
 
 function App() {
     return (
-        <BrowserRouter basename="/company_application_platform_frontend"> {/* Routes mit BrowserRouter einwickeln */}
+        <HashRouter> {/* Routes mit BrowserRouter einwickeln */}
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/admin" element={<AdminPage />} />
@@ -17,7 +17,7 @@ function App() {
                 <Route path="/firmen-list" element={<FirmenList />} />
                 <Route path="/edit-firma/:id" element={<EditFirma />} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
