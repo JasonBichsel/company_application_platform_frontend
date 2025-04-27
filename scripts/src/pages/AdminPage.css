@@ -1,0 +1,170 @@
+/* Allgemeine Stile */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0 1rem; /* Weißer Rand um den gesamten Inhalt */
+    box-sizing: border-box;
+}
+
+/* Äußere Container (weißer Rand) */
+.outer-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Container für Login-Formular */
+.login-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+    background-color: #d8cac7;
+    border-radius: 15px;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Login-Feld */
+input {
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Login Button */
+button {
+    padding: 0.8rem 1.6rem;
+    font-size: 1.2rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: darkgray;
+    transform: scale(1.02);
+}
+
+/* Firmenliste Container */
+.firmen-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 2rem;
+    background-color: #d8cac7;
+    border-radius: 15px;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+}
+
+/* Firmenliste */
+.firmen-liste {
+    list-style: none;
+    padding: 0;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+/* Firmenkarten */
+.firmen-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #d8cac7;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 280px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover-Effekt für die Firmenkarten */
+.firmen-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Firmenname */
+.firmenname {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0.5rem;
+}
+
+/* Details */
+.details {
+    font-size: 1rem;
+    color: black;
+}
+
+/* Hintergrundfarben für verschiedene Status */
+.status-offen {
+    background-color: #ffcccc;
+}
+
+.status-in-arbeit {
+    background-color: #fff59d;
+}
+
+.status-versendet {
+    background-color: #c8e6c9;
+}
+
+/* Container für Status Dropdown und Löschen-Button */
+.firmen-item-footer {
+    display: flex;
+    align-items: center;  /* Vertikale Ausrichtung auf der mittleren Achse */
+    justify-content: flex-start; /* Elemente am linken Rand ausrichten */
+    gap: 10px;  /* Fügt Abstand zwischen Dropdown und Löschen-Button hinzu */
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Dropdown für den Status */
+.firmen-item-footer select {
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+/* Löschen-Button */
+.firmen-item-footer button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover-Effekt für den Löschen-Button */
+.firmen-item-footer button:hover {
+    background-color: darkred;
+}

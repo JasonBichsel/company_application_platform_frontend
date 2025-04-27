@@ -1,0 +1,571 @@
+/* Setzt den allgemeinen Hintergrund auf weiß und die Schriftfarbe auf schwarz */
+body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: black; /* Standard Schriftfarbe auf schwarz */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Zentriert alle Abschnitte horizontal */
+    justify-content: flex-start;
+    width: 100%; /* Volle Breite */
+}
+
+/* Header Styling mit abgerundeten Ecken */
+header {
+    text-align: center;
+    padding: 2rem; /* Skalierbare Padding */
+    background-color: #d8cac7; /* Hintergrundfarbe */
+    border-radius: 15px; /* Abgerundete Ecken für den Header */
+    margin-bottom: 2rem; /* Abstand zum nächsten Element */
+    width: 100%;
+    max-width: 1200px; /* Maximale Breite für den Header */
+    box-sizing: border-box; /* Padding zur Gesamtbreite hinzuzufügen */
+}
+
+/* Rundes Profilbild */
+#Profilbild {
+    width: 12rem; /* Skalierbare Breite */
+    height: 12rem;
+    border-radius: 50%; /* Runde Form */
+    margin-top: 1rem;
+    object-fit: cover;
+}
+
+/* Flexbox für das Layout von Name und Icons nebeneinander */
+.LJG {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Zentriert die Icons und den Namen horizontal */
+    gap: 10px; /* Abstand zwischen den Icons und dem Namen */
+    margin-top: 1rem; /* Optional, um etwas Abstand zum Profilbild hinzuzufügen */
+}
+
+.LJG a {
+    font-size: 2rem; /* Größe der Icons */
+    color: black;
+}
+
+.LJG a:hover {
+    color: darkgray; /* Hover-Farbe für die Icons */
+}
+
+.LJG_W {
+    font-size: 1.5rem; /* Schriftgröße für deinen Namen */
+    margin: 0;
+}
+
+/* Navigation Styling - zentriert und gleich breit */
+nav {
+    position: sticky; /* Sticky Position */
+    top: 0; /* Abstand vom oberen Rand */
+    background-color: #d8cac7; /* Hintergrundfarbe */
+    padding: 2rem; /* Skalierbare Padding */
+    border-radius: 15px; /* Abgerundete Ecken */
+    margin-bottom: 2rem; /* Abstand zum nächsten Element */
+    text-align: center; /* Text in der Mitte */
+    width: 100%;
+    max-width: 1200px; /* Maximale Breite für die Navigation */
+    box-sizing: border-box; /* Padding zur Gesamtbreite hinzuzufügen */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 2.5rem;
+}
+
+nav ul li a {
+    color: black; /* Linkfarbe schwarz */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: darkgray;
+}
+
+/* Allgemeines Styling für Abschnitte */
+#übermich, #IT-skills, #timeline, #Projekte, #kontakt {
+    background-color: #d8cac7; /* Hintergrundfarbe */
+    padding: 2rem; /* Skalierbare Padding */
+    margin-bottom: 2rem;
+    border-radius: 15px; /* Abgerundete Ecken */
+    color: black; /* Textfarbe schwarz */
+    width: 100%; /* Die Breite jedes Containers passt sich an */
+    max-width: 1200px; /* Maximale Breite für die Abschnitte */
+    box-sizing: border-box; /* Padding zur Gesamtbreite hinzuzufügen */
+    padding-left: 5%; /* Abstand nach links */
+    padding-right: 5%; /* Abstand nach rechts */
+}
+
+/* Text und Listen Styling */
+h1, h2 {
+    color: black; /* Titel schwarz */
+}
+
+p {
+    color: black; /* Paragraphen schwarz */
+}
+
+ul {
+    color: black; /* Listen schwarz */
+}
+/* Container für die IT-Skills */
+#IT-skills ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto; /* Zentriert den gesamten Container horizontal */
+    display: flex;
+    flex-direction: column; /* Reihen übereinander */
+    align-items: center; /* Zentriert alle Zeilen horizontal */
+    gap: 1rem; /* Abstand zwischen den Zeilen */
+}
+
+/* Styling für jede Zeile (li) */
+#IT-skills ul li {
+    display: flex; /* Flexbox für den Inhalt */
+    justify-content: flex-start; /* Inhalt linksbündig ausrichten */
+    align-items: center; /* Vertikal zentrieren */
+    width: 100%; /* Breite auf 100% des Containers */
+    max-width: 600px; /* Optional: maximale Breite für die Zeilen */
+    gap: 1rem; /* Abstand zwischen den Elementen in der Zeile */
+}
+#IT-skills ul li span:first-child {
+    margin-right: 5rem; /* Mehr Abstand rechts vom Namen */
+}
+/* Styling für Namen */
+#IT-skills ul .name {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: black;
+    flex: 1; /* Flexibler Platz für den Namen */
+    text-align: left; /* Links ausrichten */
+}
+
+/* Styling für Ratings */
+#IT-skills ul .rating {
+    font-size: 1rem;
+    color: gray;
+    flex: 0 0 80px; /* Fester Platz für Ratings */
+    text-align: left; /* Links ausrichten */
+}
+
+/* Styling für Sterne */
+#IT-skills ul .stars {
+    font-size: 1.5rem; /* Schriftgröße der Sterne */
+    color: black;
+    text-align: left; /* Links ausrichten */
+    flex: 1; /* Flexibler Platz für Sterne */
+}
+
+/* Styling für die Tabelle */
+#timeline .timeline-item {
+    width: 100%;
+    border: 1px solid #000; /* Schwarzer Rahmen um die Tabelle */
+    margin-bottom: 20px; /* Abstand zwischen den Tabellen */
+    border-collapse: collapse; /* Verhindert doppelte Ränder */
+    background-color: #222; /* Schwarzer Hintergrund für die gesamte Tabelle */
+    color: white; /* Weiße Schrift für alle Zellen */
+}
+#timeline p{
+    color: white; /* Weiße Schrift für alle Zellen */
+}
+/* Zellen Styling (Th und Td) */
+.timeline-item th,
+.timeline-item td {
+    padding: 12px 20px; /* Padding für Zellen */
+    text-align: left; /* Standardmäßig linksbündig */
+    border: 1px solid #000; /* Schwarzer Rahmen für Zellen */
+}
+
+/* Kopfzeilen Styling */
+.timeline-item th {
+    background-color: #222; /* Dunklerer Hintergrund für Kopfzeilen */
+    font-weight: bold; /* Kopfzeilen fett */
+}
+
+/* Zeilen Styling */
+.timeline-item tr:nth-child(even) {
+    background-color: #222; /* Abwechselnde Zeilenfarben für bessere Lesbarkeit */
+}
+/* Zentrieren der ersten Spalte */
+.timeline-item th:first-child,
+.timeline-item td:first-child {
+    text-align: center; /* Text in der ersten Spalte zentrieren */
+    width: 150px; /* Optional, um die erste Spalte etwas schmaler zu machen */
+    border: none; /* Entfernt den Rahmen für die erste Spalte */
+}
+
+/* Responsives Design für kleinere Bildschirme */
+@media screen and (max-width: 768px) {
+    .timeline-item th,
+    .timeline-item td {
+        padding: 8px 12px; /* Weniger Padding auf kleinen Geräten */
+    }
+
+    .timeline-item th,
+    .timeline-item td {
+        font-size: 0.9rem; /* Kleinere Schrift auf kleinen Geräten */
+    }
+
+    .timeline-item td:first-child {
+        font-size: 0.9rem; /* Kleinere Schrift in der ersten Spalte */
+    }
+}
+
+/* Responsive Design für kleinere Bildschirmgrößen */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 1rem;
+    }
+
+    header {
+        padding: 2rem;
+    }
+
+    #Profilbild {
+        width: 10rem;
+        height: 10rem;
+    }
+
+    nav ul li {
+        margin: 0 1.5rem;
+    }
+
+    #IT-skills ul li {
+        font-size: 1.4rem;
+    }
+
+    .Sek_Schule,
+    .Ausbildung,
+    .Primar_Schule {
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    .Ausbildung_I {
+        font-size: 2rem;
+    }
+
+    .schule, .Ort, .startdatum, .enddatum {
+        font-size: 1.4rem;
+    }
+}
+
+/* Medienabfragen für größere Bildschirme */
+@media screen and (min-width: 768px) {
+    body {
+        font-size: 1.2rem;
+    }
+
+    header {
+        padding: 3rem;
+    }
+
+    #Profilbild {
+        width: 18rem;
+        height: 18rem;
+    }
+
+    nav ul li {
+        margin: 0 2.5rem;
+    }
+
+    #IT-skills ul li {
+        font-size: 1.8rem;
+    }
+
+    .Sek_Schule,
+    .Ausbildung,
+    .Primar_Schule {
+        width: 80%;
+        padding: 2.5rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    body {
+        font-size: 1.4rem;
+    }
+
+    header {
+        padding: 3.5rem;
+    }
+
+    #Profilbild {
+        width: 20rem;
+        height: 20rem;
+    }
+
+    nav ul li {
+        margin: 0 3rem;
+    }
+}
+
+/* Footer Styling */
+footer {
+    display: flex; /* Verwenden von Flexbox, um die Elemente nebeneinander zu platzieren */
+    justify-content: space-between; /* Abstand zwischen Button und Navigation */
+    align-items: flex-start; /* Vertikal oben ausrichten */
+    padding: 2rem; /* Skalierbare Padding */
+    background-color: #d8cac7; /* Hintergrundfarbe */
+    border-radius: 15px; /* Abgerundete Ecken */
+    margin-top: 2rem; /* Abstand zum vorherigen Abschnitt */
+    width: 100%; /* Volle Breite */
+    max-width: 1200px; /* Maximale Breite für den Footer */
+    box-sizing: border-box; /* Padding zur Gesamtbreite hinzuzufügen */
+}
+
+/* Button und Navigation in einer flexiblen Container */
+.footer-button {
+    display: flex; /* Flexbox für die inneren Elemente */
+    justify-content: flex-start; /* Positioniert den Button links */
+    align-items: flex-start; /* Vertikal oben ausrichten */
+    gap: 2rem; /* Abstand zwischen Button und Navigation */
+}
+
+/* Styling für das Div mit dem Button und Text */
+.footer-button .button-container {
+    display: flex;
+    flex-direction: column; /* Text und Button untereinander */
+    align-items: flex-start; /* Links ausrichten */
+    margin-right: 2rem; /* Abstand nach rechts */
+}
+
+/* Beschreibung unter dem Button */
+.footer-button .button-container p {
+    margin-bottom: 1rem; /* Abstand zwischen Text und Button */
+}
+
+/* Button Styling */
+.footer-button button {
+    padding: 0.8rem 1.6rem; /* Skalierbare Padding für den Button */
+    font-size: 1.5rem; /* Schriftgröße des Buttons */
+    background-color: #222; /* Hintergrundfarbe des Buttons */
+    color: white; /* Schriftfarbe des Buttons */
+    border: none; /* Entfernt den Rand */
+    border-radius: 10px; /* Abgerundete Ecken für den Button */
+    cursor: pointer; /* Zeigt den Zeiger-Cursor beim Hover */
+}
+
+/* Button Hover-Effekt */
+.footer-button button:hover {
+    background-color: darkgray; /* Dunklerer Hintergrund beim Hover */
+}
+
+/* Navigation im Footer Styling */
+.footer-button ul {
+    display: flex; /* Flexbox für die Navigation */
+    flex-direction: column; /* Liste vertikal anordnen */
+    gap: 20px; /* Abstand zwischen den Links */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-button ul li {
+    margin: 0;
+}
+
+.footer-button ul li a {
+    text-decoration: none;
+    color: black; /* Standard Linkfarbe */
+    font-weight: bold;
+}
+
+/* Hover-Effekt für die Links */
+.footer-button ul li a:hover {
+    color: darkgray; /* Hover-Farbe */
+}
+/* -----------------------------------------------
+/* Verbesserungen für Formulare */
+form {
+    background-color: #d8cac7; /* Konsistente Hintergrundfarbe */
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto;
+    color: black; /* Textfarbe passend zur Hintergrundfarbe */
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: black; /* Konsistente Textfarbe */
+}
+
+form input, form button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid black; /* Rahmenfarbe passend zum Design */
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: white; /* Kontrastreicher Hintergrund */
+    color: black;
+    box-sizing: border-box;
+}
+
+form input:focus {
+    border-color: darkgray; /* Fokus-Rahmen */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+form button {
+    background-color: black; /* Kontrastreicher Button */
+    color: white; /* Textfarbe für Kontrast */
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: darkgray; /* Hover-Effekt */
+    transform: scale(1.02);
+}
+
+/* Verbesserungen für die registrierte Firmenliste */
+#firmenListe {
+    list-style: none;
+    padding: 0;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+#firmenListe li {
+    background-color: #d8cac7; /* Konsistente Hintergrundfarbe */
+    border: 1px solid black; /* Passender Rahmen */
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#firmenListe li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Verbesserungen für die Seite */
+h2 {
+    text-align: center;
+    color: black; /* Konsistente Textfarbe */
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Footer Verbesserungen */
+footer {
+    margin-top: 2rem;
+    background-color: #d8cac7; /* Konsistente Hintergrundfarbe */
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 1rem;
+    color: black; /* Passende Textfarbe */
+}
+
+/* Verbesserungen für kleinere Bildschirme */
+@media screen and (max-width: 768px) {
+    form {
+        padding: 1.5rem;
+    }
+
+    #firmenListe li {
+        padding: 0.8rem;
+    }
+
+    h1, h2 {
+        font-size: 1.8rem;
+    }
+
+    footer {
+        font-size: 0.9rem;
+    }
+}
+
+/* Hover-Effekte und Animationen */
+button, #firmenListe li {
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+
+a:hover {
+    text-decoration: underline;
+    color: darkgray;
+}
+#firmenListe li {
+    display: flex;
+    flex-direction: column; /* Inhalte untereinander anordnen */
+    align-items: flex-start; /* Links ausrichten */
+    background-color: #d8cac7; /* Konsistente Hintergrundfarbe */
+    border: 1px solid black; /* Rahmen */
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#firmenListe li .firmenname {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0.5rem; /* Abstand zur nächsten Zeile */
+}
+
+#firmenListe li .details {
+    font-size: 1rem;
+    color: black;
+}
+a
+#firmenListe li .details span {
+    display: block; /* Erzwingt, dass jedes Detail in einer eigenen Zeile steht */
+    margin-bottom: 0.3rem; /* Abstand zwischen den Details */
+}
+
+#firmenListe li .details span:last-child {
+    margin-bottom: 0; /* Kein Abstand bei der letzten Zeile */
+}
+/* Container für den Kontaktbereich */
+#kontakt {
+    display: flex;
+    justify-content: space-between; /* Buttons links, Nav rechts */
+    align-items: center; /* Vertikal zentriert */
+    text-align: center; /* Inhalt zentrieren */
+    position: relative; /* Für genaues Positionieren */
+}
+
+/* Zentriert den Inhalt des Kontaktbereichs */
+#kontakt .kontakt-info {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Setzt die Navigation ganz nach rechts */
+#kontakt nav {
+    margin-left: auto;
+}
+
+/* Setzt die Buttons ganz nach links */
+#kontakt .footer-button {
+    margin-right: auto;
+}
