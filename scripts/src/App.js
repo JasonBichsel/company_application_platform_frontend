@@ -1,6 +1,6 @@
 // App.jsx
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Hier BrowserRouter hinzufügen
+import { HashRouter, Routes, Route } from 'react-router-dom'; // Hier BrowserRouter hinzufügen
 import AdminPage from './pages/AdminPage';
 import RegistrationForm from './pages/RegistrationForm';
 import FirmenList from './pages/FirmenList';
