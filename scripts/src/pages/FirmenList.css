@@ -9,11 +9,11 @@ body {
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    padding: 0 1rem; /* Weißer Rand um den gesamten Inhalt */
+    padding: 0 1rem; /* Weisser Rand um den gesamten Inhalt */
     box-sizing: border-box;
 }
 
-/* Äußere Container (weißer Rand) */
+/* Äussere Container (weisser Rand) */
 .outer-container {
     width: 100%;
     max-width: 1200px;
@@ -151,4 +151,13 @@ button {
 button:hover {
     background-color: darkgray;
     transform: scale(1.02);
+}
+
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: black;
+    margin: 2rem 0;
 }

@@ -11,10 +11,12 @@ function FirmenList() {
     const [selectedFirma, setSelectedFirma] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loadingFirmen, setLoadingFirmen] = useState(true); // Add loading state for Firmenliste
     const navigate = useNavigate();
 
     const fetchFirmen = async () => {
         try {
+            setLoadingFirmen(true); // Set loading to true before fetching
             const response = await fetch('https://company-application-platform-backend.onrender.com/api/firma', { method: 'GET' });
             if (response.ok) {
                 const data = await response.json();
@@ -24,6 +26,8 @@ function FirmenList() {
             }
         } catch (error) {
             console.error('Fehler beim Abrufen der Firmen:', error);
+        } finally {
+            setLoadingFirmen(false); // Set loading to false after fetching
         }
     };
 
@@ -87,33 +91,40 @@ function FirmenList() {
     return (
         <div className="firmen-container">
             <h1>Firmenübersicht</h1>
-            <div className="search-container"> {/* class -> className */}
-            <input 
-                type="text" 
-                placeholder="Suche nach Firmen..." 
-                value={searchTerm} 
-                onChange={(e) => setSearchTerm(e.target.value)} 
-                className="search-bar"
-            />
-            <button onClick={handleGoHome} className="back-button">
-                Zurück zur Startseite
-            </button>
-            </div>
-        
-            <ul className="firmen-liste">
-                {firmen.filter(firma => firma.firmenname.toLowerCase().includes(searchTerm.toLowerCase())).map((firma) => (
-                    <li key={firma.id} className={`firmen-item ${firma.status === 'offen' ? 'status-offen' : firma.status === 'in Arbeit' ? 'status-in-arbeit' : 'status-versendet'}`}>
-                        <p className="firmenname"><strong>Firmenname:</strong> {firma.firmenname}</p>
-                        <p className="details"><strong>Adresse:</strong> {firma.adresse}</p>
-                        <p className="details"><strong>Kontaktperson:</strong> {firma.kontaktperson}</p>
-                        <p className="details"><strong>Email:</strong> {firma.email}</p>
-                        <p className="details"><strong>Telefon:</strong> {firma.telefon}</p>
-                        <p className="details"><strong>Status:</strong> {firma.status}</p>
-                        <button onClick={() => handleEditClick(firma)}>Bearbeiten</button>
-                    </li>
-                ))}
-            </ul>
-
+            {loadingFirmen ? ( // Show spinner while loading
+                <>
+                <div><p style={{ fontSize: '0.9em' }}>Hinweis: Die Firmenliste braucht etwas Zeit um zu laden</p></div>
+                <div className="spinner">Lädt...</div>
+                </>
+            ) : (
+                <>
+                    <div className="search-container">
+                        <input 
+                            type="text" 
+                            placeholder="Suche nach Firmen..." 
+                            value={searchTerm} 
+                            onChange={(e) => setSearchTerm(e.target.value)} 
+                            className="search-bar"
+                        />
+                        <button onClick={handleGoHome} className="back-button">
+                            Zurück zur Startseite
+                        </button>
+                    </div>
+                    <ul className="firmen-liste">
+                        {firmen.filter(firma => firma.firmenname.toLowerCase().includes(searchTerm.toLowerCase())).map((firma) => (
+                            <li key={firma.id} className={`firmen-item ${firma.status === 'offen' ? 'status-offen' : firma.status === 'in Arbeit' ? 'status-in-arbeit' : 'status-versendet'}`}>
+                                <p className="firmenname"><strong>Firmenname:</strong> {firma.firmenname}</p>
+                                <p className="details"><strong>Adresse:</strong> {firma.adresse}</p>
+                                <p className="details"><strong>Kontaktperson:</strong> {firma.kontaktperson}</p>
+                                <p className="details"><strong>Email:</strong> {firma.email}</p>
+                                <p className="details"><strong>Telefon:</strong> {firma.telefon}</p>
+                                <p className="details"><strong>Status:</strong> {firma.status}</p>
+                                <button onClick={() => handleEditClick(firma)}>Bearbeiten</button>
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            )}
             <Modal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
@@ -122,8 +133,6 @@ function FirmenList() {
                 password={password}
                 onPasswordChange={(e) => setPassword(e.target.value)}
             />
-
-            
         </div>
     );
 }

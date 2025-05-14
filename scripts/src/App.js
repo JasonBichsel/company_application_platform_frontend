@@ -6,12 +6,15 @@ import RegistrationForm from './pages/RegistrationForm';
 import FirmenList from './pages/FirmenList';
 import EditFirma from './pages/EditFirma';
 import HomePage from './pages/HomePage';
+import Datenschutzerklärung from './pages/Datenschutzerklärung';
+
 
 function App() {
     return (
-        <HashRouter > {/* Routes mit BrowserRouter einwickeln */}
+        <HashRouter > {/* Hier HashRouter verwenden */}
             <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/Datenschutzerklärung" element={<Datenschutzerklärung />} />
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/register" element={<RegistrationForm />} />
                 <Route path="/firmen-list" element={<FirmenList />} />

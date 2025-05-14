@@ -1,4 +1,4 @@
-/* Setzt den allgemeinen Hintergrund auf weiß und die Schriftfarbe auf schwarz */
+/* Setzt den allgemeinen Hintergrund auf weiss und die Schriftfarbe auf schwarz */
 body {
     background-color: white;
     font-family: Arial, sans-serif;
@@ -42,7 +42,7 @@ header {
 }
 
 .LJG a {
-    font-size: 2rem; /* Größe der Icons */
+    font-size: 2rem; /* Grösse der Icons */
     color: black;
 }
 
@@ -51,7 +51,7 @@ header {
 }
 
 .LJG_W {
-    font-size: 1.5rem; /* Schriftgröße für deinen Namen */
+    font-size: 1.5rem; /* Schriftgrösse für deinen Namen */
     margin: 0;
 }
 
@@ -159,7 +159,7 @@ ul {
 
 /* Styling für Sterne */
 #IT-skills ul .stars {
-    font-size: 1.5rem; /* Schriftgröße der Sterne */
+    font-size: 1.5rem; /* Schriftgrösse der Sterne */
     color: black;
     text-align: left; /* Links ausrichten */
     flex: 1; /* Flexibler Platz für Sterne */
@@ -172,16 +172,16 @@ ul {
     margin-bottom: 20px; /* Abstand zwischen den Tabellen */
     border-collapse: collapse; /* Verhindert doppelte Ränder */
     background-color: #222; /* Schwarzer Hintergrund für die gesamte Tabelle */
-    color: white; /* Weiße Schrift für alle Zellen */
+    color: white; /* Weisse Schrift für alle Zellen */
 }
 #timeline p{
-    color: white; /* Weiße Schrift für alle Zellen */
+    color: white; /* Weisse Schrift für alle Zellen */
 }
 /* Zellen Styling (Th und Td) */
 .timeline-item th,
 .timeline-item td {
     padding: 12px 20px; /* Padding für Zellen */
-    text-align: left; /* Standardmäßig linksbündig */
+    text-align: left; /* Standardmässig linksbündig */
     border: 1px solid #000; /* Schwarzer Rahmen für Zellen */
 }
 
@@ -220,7 +220,7 @@ ul {
     }
 }
 
-/* Responsive Design für kleinere Bildschirmgrößen */
+/* Responsive Design für kleinere Bildschirmgrössen */
 @media screen and (max-width: 768px) {
     body {
         font-size: 1rem;
@@ -259,7 +259,7 @@ ul {
     }
 }
 
-/* Medienabfragen für größere Bildschirme */
+/* Medienabfragen für grössere Bildschirme */
 @media screen and (min-width: 768px) {
     body {
         font-size: 1.2rem;
@@ -347,7 +347,7 @@ footer {
 /* Button Styling */
 .footer-button button {
     padding: 0.8rem 1.6rem; /* Skalierbare Padding für den Button */
-    font-size: 1.5rem; /* Schriftgröße des Buttons */
+    font-size: 1.5rem; /* Schriftgrösse des Buttons */
     background-color: #222; /* Hintergrundfarbe des Buttons */
     color: white; /* Schriftfarbe des Buttons */
     border: none; /* Entfernt den Rand */
@@ -462,7 +462,6 @@ form button:hover {
 
 /* Verbesserungen für die Seite */
 h2 {
-    text-align: center;
     color: black; /* Konsistente Textfarbe */
     font-size: 2rem;
     margin-bottom: 1rem;
