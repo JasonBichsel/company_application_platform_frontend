@@ -49,14 +49,22 @@ function EditFirma() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const sanitizedFormData = {
+            firmenname: sanitizeInput(formData.firmenname),
+            adresse: sanitizeInput(formData.adresse),
+            kontaktperson: sanitizeInput(formData.kontaktperson),
+            email: sanitizeInput(formData.email),
+            telefon: sanitizeInput(formData.telefon),
+        };
+
         // Überprüfen, ob die Felder leer sind und nur die nicht-leeren Felder in der Anfrage senden
         const updatedFirma = { 
             ...firma, 
-            firmenname: formData.firmenname || firma.firmenname,
-            adresse: formData.adresse || firma.adresse,
-            kontaktperson: formData.kontaktperson || firma.kontaktperson,
-            email: formData.email || firma.email,
-            telefon: formData.telefon || firma.telefon
+            firmenname: sanitizedFormData.firmenname || firma.firmenname,
+            adresse: sanitizedFormData.adresse || firma.adresse,
+            kontaktperson: sanitizedFormData.kontaktperson || firma.kontaktperson,
+            email: sanitizedFormData.email || firma.email,
+            telefon: sanitizedFormData.telefon || firma.telefon
             // Passwort wird nicht geändert
         };
 

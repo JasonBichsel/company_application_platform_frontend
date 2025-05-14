@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from './Modal';
+import DOMPurify from 'dompurify'; // Import DOMPurify
 import './FirmenList.css'; // CSS-Datei eingebunden
 
 function FirmenList() {
@@ -49,9 +50,8 @@ function FirmenList() {
             alert('Bitte Passwort eingeben.');
             return;
         }
-        setLoading(true);
-        const cleanedPassword = password.trim().replace(/^"|"$/g, '');
-        const isPasswordValid = await checkPassword(selectedFirma.id, cleanedPassword);
+        const sanitizedPassword = DOMPurify.sanitize(password.trim());
+        const isPasswordValid = await checkPassword(selectedFirma.id, sanitizedPassword);
         if (isPasswordValid) {
             navigate(`/edit-firma/${selectedFirma.id}`, { state: { firma: selectedFirma } });
         } else {
@@ -87,7 +87,7 @@ function FirmenList() {
     return (
         <div className="firmen-container">
             <h1>Firmenübersicht</h1>
-            <div class="search-container">
+            <div className="search-container"> {/* class -> className */}
             <input 
                 type="text" 
                 placeholder="Suche nach Firmen..." 

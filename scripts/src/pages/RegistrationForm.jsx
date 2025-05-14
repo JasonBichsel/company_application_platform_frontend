@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importiere den useNavigate-Hook
+import DOMPurify from 'dompurify'; // Import DOMPurify
+import './RegistrationForm.css'; // CSS-Datei für Stile
 
 // Funktion zur Bereinigung der Eingabedaten
 const sanitizeInput = (input) => {
-    return input.replace(/<[^>]*>/g, '');  // Entfernt HTML-Tags
+    return DOMPurify.sanitize(input); // Sichere Bereinigung mit DOMPurify
 };
 
 function RegistrationForm() {
@@ -23,6 +25,9 @@ function RegistrationForm() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        // Eingabelänge begrenzen
+        if (value.length > 255) return;
         
         // Bereinige die Eingabe, bevor sie gesetzt wird
         const sanitizedValue = sanitizeInput(value);
@@ -52,37 +57,47 @@ function RegistrationForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const sanitizedFormData = {
+            firmenname: sanitizeInput(formData.firmenname),
+            adresse: sanitizeInput(formData.adresse),
+            kontaktperson: sanitizeInput(formData.kontaktperson),
+            email: sanitizeInput(formData.email),
+            telefon: sanitizeInput(formData.telefon),
+            passwort: sanitizeInput(formData.passwort),
+            status: sanitizeInput(formData.status),
+        };
+
         const errors = [];
 
         // Überprüfe, ob alle Felder ausgefüllt sind
-        if (!formData.firmenname) {
+        if (!sanitizedFormData.firmenname) {
             errors.push("Firmenname ist erforderlich.");
         }
-        if (!formData.adresse) {
+        if (!sanitizedFormData.adresse) {
             errors.push("Adresse ist erforderlich.");
         }
-        if (!formData.email) {
+        if (!sanitizedFormData.email) {
             errors.push("E-Mail ist erforderlich.");
         }
-        if (!formData.telefon) {
+        if (!sanitizedFormData.telefon) {
             errors.push("Telefonnummer ist erforderlich.");
         }
-        if (!formData.passwort) {
+        if (!sanitizedFormData.passwort) {
             errors.push("Passwort ist erforderlich.");
         }
 
         // E-Mail validieren
-        if (formData.email && !validateEmail(formData.email)) {
+        if (sanitizedFormData.email && !validateEmail(sanitizedFormData.email)) {
             errors.push("Bitte geben Sie eine gültige E-Mail-Adresse ein (mit .ch oder .com).");
         }
 
         // Passwort validieren (mindestens 5 Zeichen)
-        if (formData.passwort && !validatePassword(formData.passwort)) {
+        if (sanitizedFormData.passwort && !validatePassword(sanitizedFormData.passwort)) {
             errors.push("Das Passwort muss mindestens 5 Zeichen lang sein.");
         }
 
         // Telefonnummer validieren
-        if (formData.telefon && !validatePhoneNumber(formData.telefon)) {
+        if (sanitizedFormData.telefon && !validatePhoneNumber(sanitizedFormData.telefon)) {
             errors.push("Bitte geben Sie eine gültige Telefonnummer für die Schweiz (+41) oder Deutschland (+49) ein.");
         }
 
@@ -102,7 +117,7 @@ function RegistrationForm() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(sanitizedFormData)
             });
 
             if (response.ok) {
@@ -220,6 +235,29 @@ function RegistrationForm() {
                     value={formData.passwort}
                     onChange={handleChange}
                 />
+                <p style={{ color: 'gray', fontSize: '12px' }}>
+                    Hinweis: Das Passwort kann nicht zurückgesetzt werden.
+                </p>
+
+                {/* Hinweis zur öffentlichen Anzeige */}
+                <p style={{ fontSize: '0.9em' }}>
+                    Hinweis: Die eingegebenen Daten (außer Passwort) werden öffentlich in der Firmenliste angezeigt.
+                </p>
+
+                {/* Zustimmung zur Anzeige */}
+                <div>
+                    <label htmlFor="zustimmung">
+                        Ich stimme der öffentlichen Anzeige meiner eingegebenen Firmendaten zu.
+                        <input type="checkbox" id="zustimmung" required style={{ marginLeft: '10px' }} />
+                    </label>
+                </div>
+
+                {/* Zustimmung zur Datenschutzerklärung */}
+                <p style={{ fontSize: '0.9em' }}>
+                    Mit dem Absenden dieses Formulars stimme ich der Verarbeitung meiner Daten gemäß der 
+                    <a href="/datenschutz.html" target="_blank">Datenschutzerklärung</a> zu.
+                </p>
+
                 <button type="submit" disabled={loading}>Registrieren</button>
             </form>
         </div>

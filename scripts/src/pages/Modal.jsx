@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DOMPurify from 'dompurify'; // Import DOMPurify
 
 function Modal({ isOpen, onClose, onSubmit, loading, password, onPasswordChange }) {
+    const [errorMessage, setErrorMessage] = useState('');
+
     if (!isOpen) return null;
+
+    const handleSubmit = () => {
+        const sanitizedPassword = DOMPurify.sanitize(password.trim());
+        if (!sanitizedPassword || sanitizedPassword.length < 5) {
+            setErrorMessage('Das Passwort muss mindestens 5 Zeichen lang sein.');
+            return;
+        }
+        setErrorMessage('');
+        onSubmit();
+    };
 
     return (
         <div style={modalOverlayStyle}>
@@ -11,11 +24,15 @@ function Modal({ isOpen, onClose, onSubmit, loading, password, onPasswordChange 
                     type="password"
                     placeholder="Passwort eingeben"
                     value={password}
-                    onChange={onPasswordChange}
+                    onChange={(e) => {
+                        setErrorMessage(''); // Fehler zurücksetzen, wenn der Benutzer tippt
+                        onPasswordChange(e);
+                    }}
                     autoComplete="off"
                 />
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <div>
-                    <button onClick={onSubmit} disabled={loading}>
+                    <button onClick={handleSubmit} disabled={loading}>
                         {loading ? 'Überprüfe Passwort...' : 'Firma bearbeiten'}
                     </button>
                     <button onClick={onClose}>Abbrechen</button>

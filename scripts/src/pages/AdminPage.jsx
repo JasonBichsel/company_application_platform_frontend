@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './AdminPage.css' // Stile importieren
+import DOMPurify from 'dompurify'; // Import DOMPurify
 
 // Funktion zur Bereinigung der Eingabedaten (entfernt HTML-Tags)
 const sanitizeInput = (input) => {
-    return input.replace(/<[^>]*>/g, '');  // Entfernt HTML-Tags
+    return DOMPurify.sanitize(input); // Sichere Bereinigung mit DOMPurify
 };
 
 function Admin() {
@@ -43,18 +44,22 @@ function Admin() {
     const handleLoginSubmit = async () => {
         setLoading(true);
 
-        // Eingaben sanitieren, bevor sie verarbeitet werden
-        const sanitizedUsername = sanitizeInput(username);
-        const sanitizedPassword = sanitizeInput(password);
+        try {
+            const sanitizedUsername = sanitizeInput(username.trim());
+            const sanitizedPassword = sanitizeInput(password.trim());
 
-        const isValid = await checkLogin(sanitizedUsername, sanitizedPassword);
-        if (isValid) {
-            setAuthorized(true);
-        } else {
-            alert('Benutzername oder Passwort sind falsch');
+            const isValid = await checkLogin(sanitizedUsername, sanitizedPassword);
+            if (isValid) {
+                setAuthorized(true);
+            } else {
+                alert('Benutzername oder Passwort sind falsch');
+            }
+        } catch (error) {
+            console.error('Fehler beim Login:', error);
+            alert('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+        } finally {
+            setLoading(false);
         }
-
-        setLoading(false);
     };
 
     const checkLogin = async (username, password) => {
