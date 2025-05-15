@@ -4,6 +4,12 @@ import Modal from './Modal';
 import DOMPurify from 'dompurify'; // Import DOMPurify
 import './FirmenList.css'; // CSS-Datei eingebunden
 
+// Hilfsfunktion, um das CSRF-Token aus dem Cookie zu lesen
+function getCsrfToken() {
+    const match = document.cookie.match(/XSRF-TOKEN=([^;]+)/);
+    return match ? decodeURIComponent(match[1]) : '';
+}
+
 function FirmenList() {
     const [firmen, setFirmen] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -67,9 +73,13 @@ function FirmenList() {
 
     const checkPassword = async (id, password) => {
         try {
+            const csrfToken = getCsrfToken();
             const response = await fetch(`https://company-application-platform-backend.onrender.com/api/firma/check-passwort/${id}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': csrfToken
+                },
                 body: JSON.stringify({ password }),
             });
             if (!response.ok) {

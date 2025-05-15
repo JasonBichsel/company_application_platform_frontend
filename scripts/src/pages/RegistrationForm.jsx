@@ -6,6 +6,12 @@ import './RegistrationForm.css';
 /* Hilfs-Funktion zur Eingabe-Bereinigung */
 const sanitizeInput = (input) => DOMPurify.sanitize(input);
 
+// Hilfsfunktion, um das CSRF-Token aus dem Cookie zu lesen
+function getCsrfToken() {
+  const match = document.cookie.match(/XSRF-TOKEN=([^;]+)/);
+  return match ? decodeURIComponent(match[1]) : '';
+}
+
 function RegistrationForm() {
   const [formData, setFormData] = useState({
     firmenname: '',
@@ -75,10 +81,13 @@ function RegistrationForm() {
 
     try {
       const resp = await fetch(
-        'https://company-application-platform-backend.onrender.com/api/firma',
+        'https://company-application-platform-backend.onrender.com/api/firma/register',
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': getCsrfToken()
+          },
           body: JSON.stringify(sanitizedFormData),
         }
       );
