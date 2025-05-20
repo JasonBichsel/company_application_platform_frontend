@@ -6,6 +6,20 @@ const sanitizeInput = (input) => {
     return input.replace(/<[^>]*>/g, '');  // Entfernt HTML-Tags
 };
 
+// Hilfsfunktion: CSRF-Token holen
+const fetchCsrfToken = async () => {
+    try {
+        const resp = await fetch('https://company-application-platform-backend.onrender.com/api/csrf-token', {
+            credentials: 'include'
+        });
+        const data = await resp.json();
+        return data.token;
+    } catch (err) {
+        console.warn('Fehler beim CSRF-Token-Fetch:', err);
+        return '';
+    }
+};
+
 function EditFirma() {
     const location = useLocation(); // Holen der Firma aus dem state
     const navigate = useNavigate();
@@ -57,7 +71,6 @@ function EditFirma() {
             telefon: sanitizeInput(formData.telefon),
         };
 
-        // Überprüfen, ob die Felder leer sind und nur die nicht-leeren Felder in der Anfrage senden
         const updatedFirma = { 
             ...firma, 
             firmenname: sanitizedFormData.firmenname || firma.firmenname,
@@ -65,13 +78,23 @@ function EditFirma() {
             kontaktperson: sanitizedFormData.kontaktperson || firma.kontaktperson,
             email: sanitizedFormData.email || firma.email,
             telefon: sanitizedFormData.telefon || firma.telefon
-            // Passwort wird nicht geändert
         };
+
+        // CSRF-Token holen
+        const csrfToken = await fetchCsrfToken();
+        if (!csrfToken) {
+            alert('CSRF-Token konnte nicht geladen werden.');
+            return;
+        }
 
         // API-Anfrage zum Aktualisieren der Firma
         const response = await fetch(`https://company-application-platform-backend.onrender.com/api/firma/${firma.id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': csrfToken
+            },
+            credentials: 'include',
             body: JSON.stringify(updatedFirma),
         });
 

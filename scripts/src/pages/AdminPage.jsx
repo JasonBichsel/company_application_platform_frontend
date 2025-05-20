@@ -7,6 +7,20 @@ const sanitizeInput = (input) => {
     return DOMPurify.sanitize(input); // Sichere Bereinigung mit DOMPurify
 };
 
+// Hilfsfunktion: CSRF-Token holen
+const fetchCsrfToken = async () => {
+    try {
+        const resp = await fetch('https://company-application-platform-backend.onrender.com/api/csrf-token', {
+            credentials: 'include'
+        });
+        const data = await resp.json();
+        return data.token;
+    } catch (err) {
+        console.warn('Fehler beim CSRF-Token-Fetch:', err);
+        return '';
+    }
+};
+
 function Admin() {
     const [firmen, setFirmen] = useState([]);
     const [username, setUsername] = useState('');
@@ -48,7 +62,15 @@ function Admin() {
             const sanitizedUsername = sanitizeInput(username.trim());
             const sanitizedPassword = sanitizeInput(password.trim());
 
-            const isValid = await checkLogin(sanitizedUsername, sanitizedPassword);
+            // CSRF-Token holen
+            const csrfToken = await fetchCsrfToken();
+            if (!csrfToken) {
+                alert('CSRF-Token konnte nicht geladen werden.');
+                setLoading(false);
+                return;
+            }
+
+            const isValid = await checkLogin(sanitizedUsername, sanitizedPassword, csrfToken);
             if (isValid) {
                 setAuthorized(true);
             } else {
@@ -62,13 +84,15 @@ function Admin() {
         }
     };
 
-    const checkLogin = async (username, password) => {
+    // checkLogin nimmt jetzt csrfToken als Argument
+    const checkLogin = async (username, password, csrfToken) => {
         try {
             const response = await fetch('https://company-application-platform-backend.onrender.com/api/admin/login', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'X-XSRF-TOKEN': csrfToken
                 },
                 body: JSON.stringify({ username, password }),
                 credentials: 'include',
@@ -88,9 +112,20 @@ function Admin() {
     };
 
     const handleStatusChange = async (firmaId, status) => {
+        // CSRF-Token holen
+        const csrfToken = await fetchCsrfToken();
+        if (!csrfToken) {
+            alert('CSRF-Token konnte nicht geladen werden.');
+            return;
+        }
+
         const response = await fetch(`https://company-application-platform-backend.onrender.com/api/firma/${firmaId}`, {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': csrfToken
+            },
+            credentials: 'include',
             body: JSON.stringify({ status })
         });
 
@@ -99,7 +134,6 @@ function Admin() {
             setFirmen(firmen.map(firma => 
                 firma.id === firmaId ? { ...firma, status: updatedFirma.status } : firma
             ));
-            
             // Benachrichtige die andere Seite, dass der Status geändert wurde
             localStorage.setItem('firmaStatusUpdated', Date.now()); // Timestamp speichern
         } else {
@@ -110,7 +144,18 @@ function Admin() {
     const handleDeleteFirma = async (firmaId) => {
         const confirmDelete = window.confirm('Bist du sicher, dass du diese Firma löschen möchtest?');
         if (confirmDelete) {
-            const response = await fetch(`https://company-application-platform-backend.onrender.com/api/firma/${firmaId}`, { method: 'DELETE' });
+            // CSRF-Token holen
+            const csrfToken = await fetchCsrfToken();
+            if (!csrfToken) {
+                alert('CSRF-Token konnte nicht geladen werden.');
+                return;
+            }
+
+            const response = await fetch(`https://company-application-platform-backend.onrender.com/api/firma/${firmaId}`, { 
+                method: 'DELETE',
+                headers: { 'X-XSRF-TOKEN': csrfToken },
+                credentials: 'include'
+            });
             if (response.ok) {
                 setFirmen(firmen.filter(firma => firma.id !== firmaId));
             } else {
