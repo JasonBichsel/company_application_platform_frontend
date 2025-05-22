@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-// Funktion zur Bereinigung der Eingabedaten
 const sanitizeInput = (input) => {
-    return input.replace(/<[^>]*>/g, '');  // Entfernt HTML-Tags
+    return input.replace(/<[^>]*>/g, '');
 };
 
-// Hilfsfunktion: CSRF-Token holen
 const fetchCsrfToken = async () => {
     try {
         const resp = await fetch('https://company-application-platform-backend.onrender.com/api/csrf-token', {
@@ -21,10 +19,8 @@ const fetchCsrfToken = async () => {
 };
 
 function EditFirma() {
-    const location = useLocation(); // Holen der Firma aus dem state
+    const location = useLocation();
     const navigate = useNavigate();
-    
-    // Initialisieren der Firma und Formulardaten
     const [firma, setFirma] = useState(location.state?.firma || {});
     const [formData, setFormData] = useState({
         firmenname: firma.firmenname || '',
@@ -32,11 +28,9 @@ function EditFirma() {
         kontaktperson: firma.kontaktperson || '',
         email: firma.email || '',
         telefon: firma.telefon || ''
-        // Passwort wird hier nicht gesetzt, da es nicht bearbeitet werden soll
     });
 
     useEffect(() => {
-        // Nur ausführen, wenn location.state.firma sich geändert hat
         if (location.state?.firma) {
             setFirma(location.state.firma);
             setFormData({
@@ -47,19 +41,14 @@ function EditFirma() {
                 telefon: location.state.firma.telefon || ''
             });
         }
-    }, [location.state?.firma]);  // Abhängigkeit nur von `location.state?.firma`
+    }, [location.state?.firma]);
 
-    // Funktion zum Bearbeiten der Formulardaten und sicherstellen, dass die Eingabe sicher ist
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        
-        // Bereinige die Eingabe, bevor sie gesetzt wird
         const sanitizedValue = sanitizeInput(value);
-
         setFormData((prevData) => ({ ...prevData, [name]: sanitizedValue }));
     };
 
-    // Funktion zum Absenden des Formulars
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -80,14 +69,12 @@ function EditFirma() {
             telefon: sanitizedFormData.telefon || firma.telefon
         };
 
-        // CSRF-Token holen
         const csrfToken = await fetchCsrfToken();
         if (!csrfToken) {
             alert('CSRF-Token konnte nicht geladen werden.');
             return;
         }
 
-        // API-Anfrage zum Aktualisieren der Firma
         const response = await fetch(`https://company-application-platform-backend.onrender.com/api/firma/${firma.id}`, {
             method: 'PUT',
             headers: { 
@@ -99,10 +86,8 @@ function EditFirma() {
         });
 
         if (response.ok) {
-            // Nach erfolgreicher Aktualisierung zurück zur Firmenübersicht
             navigate('/firmen-list');
         } else {
-            // Fehlerbehandlung
             alert('Fehler beim Aktualisieren der Firma');
         }
     };
@@ -161,7 +146,6 @@ function EditFirma() {
                     />
                 </label>
                 <br />
-                {/* Das Passwortfeld wird hier nicht angezeigt */}
                 <button type="submit">Firma aktualisieren</button>
             </form>
         </div>

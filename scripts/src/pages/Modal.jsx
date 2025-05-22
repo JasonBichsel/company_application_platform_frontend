@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DOMPurify from 'dompurify'; // Import DOMPurify
+import DOMPurify from 'dompurify';
 
 function Modal({ isOpen, onClose, onSubmit, loading, password, onPasswordChange }) {
     const [errorMessage, setErrorMessage] = useState('');
@@ -25,7 +25,7 @@ function Modal({ isOpen, onClose, onSubmit, loading, password, onPasswordChange 
                     placeholder="Passwort eingeben"
                     value={password}
                     onChange={(e) => {
-                        setErrorMessage(''); // Fehler zurücksetzen, wenn der Benutzer tippt
+                        setErrorMessage('');
                         onPasswordChange(e);
                     }}
                     autoComplete="off"

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './AdminPage.css' // Stile importieren
-import DOMPurify from 'dompurify'; // Import DOMPurify
+import './AdminPage.css'
+import DOMPurify from 'dompurify';
 
-// Funktion zur Bereinigung der Eingabedaten (entfernt HTML-Tags)
 const sanitizeInput = (input) => {
-    return DOMPurify.sanitize(input); // Sichere Bereinigung mit DOMPurify
+    return DOMPurify.sanitize(input);
 };
 
-// Hilfsfunktion: CSRF-Token holen
 const fetchCsrfToken = async () => {
     try {
         const resp = await fetch('https://company-application-platform-backend.onrender.com/api/csrf-token', {
@@ -61,15 +59,12 @@ function Admin() {
         try {
             const sanitizedUsername = sanitizeInput(username.trim());
             const sanitizedPassword = sanitizeInput(password.trim());
-
-            // CSRF-Token holen
             const csrfToken = await fetchCsrfToken();
             if (!csrfToken) {
                 alert('CSRF-Token konnte nicht geladen werden.');
                 setLoading(false);
                 return;
             }
-
             const isValid = await checkLogin(sanitizedUsername, sanitizedPassword, csrfToken);
             if (isValid) {
                 setAuthorized(true);
@@ -84,7 +79,6 @@ function Admin() {
         }
     };
 
-    // checkLogin nimmt jetzt csrfToken als Argument
     const checkLogin = async (username, password, csrfToken) => {
         try {
             const response = await fetch('https://company-application-platform-backend.onrender.com/api/admin/login', {
@@ -112,7 +106,6 @@ function Admin() {
     };
 
     const handleStatusChange = async (firmaId, status) => {
-        // CSRF-Token holen
         const csrfToken = await fetchCsrfToken();
         if (!csrfToken) {
             alert('CSRF-Token konnte nicht geladen werden.');
@@ -134,8 +127,7 @@ function Admin() {
             setFirmen(firmen.map(firma => 
                 firma.id === firmaId ? { ...firma, status: updatedFirma.status } : firma
             ));
-            // Benachrichtige die andere Seite, dass der Status geändert wurde
-            localStorage.setItem('firmaStatusUpdated', Date.now()); // Timestamp speichern
+            localStorage.setItem('firmaStatusUpdated', Date.now());
         } else {
             console.error('Fehler beim Aktualisieren des Status');
         }
@@ -144,7 +136,6 @@ function Admin() {
     const handleDeleteFirma = async (firmaId) => {
         const confirmDelete = window.confirm('Bist du sicher, dass du diese Firma löschen möchtest?');
         if (confirmDelete) {
-            // CSRF-Token holen
             const csrfToken = await fetchCsrfToken();
             if (!csrfToken) {
                 alert('CSRF-Token konnte nicht geladen werden.');

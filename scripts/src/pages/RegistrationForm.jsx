@@ -6,7 +6,6 @@ import './RegistrationForm.css';
 const sanitizeInput = (input) => DOMPurify.sanitize(input);
 
 function RegistrationForm() {
-  // ...existing code...
   const [formData, setFormData] = useState({
     firmenname: '',
     adresse: '',
@@ -21,7 +20,6 @@ function RegistrationForm() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Hole das CSRF-Token (aus Header/JSON, kein Cookie nötig)
   const fetchCsrfToken = async () => {
     try {
       const resp = await fetch('https://company-application-platform-backend.onrender.com/api/csrf-token', {
@@ -50,7 +48,6 @@ function RegistrationForm() {
     setLoading(true);
     setErrorMessages([]);
 
-    // Token direkt vor dem POST holen!
     const csrfToken = await fetchCsrfToken();
     if (!csrfToken || csrfToken.length < 10 || csrfToken.length > 2000) {
       setErrorMessages(['CSRF-Token konnte nicht geladen werden.']);
