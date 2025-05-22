@@ -21,24 +21,19 @@ function RegistrationForm() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // ...existing code...
-
-  // Hilfsfunktion: Vergleiche Token im Header und Cookie
-  const fetchCsrfTokenAndCookie = async () => {
-  try {
-    const resp = await fetch('https://company-application-platform-backend.onrender.com/api/csrf-token', {
-      credentials: 'include'
-    });
-    const data = await resp.json();
-    console.log('CSRF-Token aus Response:', data.token);
-    // Hinweis: Bei Cross-Origin ist der Cookie im Browser oft NICHT lesbar (zeigt <empty string>), das ist normal!
-    // Spring prüft aber intern, ob das Token im Header mit dem Cookie (serverseitig) übereinstimmt.
-    return data.token;
-  } catch (err) {
-    console.warn('Fehler beim CSRF-Token-Fetch:', err);
-    return '';
-  }
-};
+  // Hole das CSRF-Token (aus Header/JSON, kein Cookie nötig)
+  const fetchCsrfToken = async () => {
+    try {
+      const resp = await fetch('https://company-application-platform-backend.onrender.com/api/csrf-token', {
+        credentials: 'include'
+      });
+      const data = await resp.json();
+      return data.token;
+    } catch (err) {
+      console.warn('Fehler beim CSRF-Token-Fetch:', err);
+      return '';
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +51,7 @@ function RegistrationForm() {
     setErrorMessages([]);
 
     // Token direkt vor dem POST holen!
-    const csrfToken = await fetchCsrfTokenAndCookie();
+    const csrfToken = await fetchCsrfToken();
     if (!csrfToken || csrfToken.length < 10 || csrfToken.length > 2000) {
       setErrorMessages(['CSRF-Token konnte nicht geladen werden.']);
       setLoading(false);
